@@ -1,16 +1,19 @@
-void getGameInput() {
-	int c_v, c_h;
-	scanf("%d %d", &c_v, &c_h);
-	int valid = validateGameInput(c_v, c_h);
-	if (valid == 1) {
-		animate(c_v, c_h);
-	} else {
-		printf("\ninvalid!\n");
-		//notify and retry
-	}
+#pragma once
+
+#include <stdio.h>
+#include <windows.h>
+#include "data_structures.h"
+
+void getGameInput(int *c_v, int *c_h);
+void animate(int c_v, int c_h, FieldProperties (*cards)[FIELD_SIZE]);
+void printField(FieldProperties (*cards)[FIELD_SIZE]);
+void printPart(int line, int state, int image);
+
+void getGameInput(int *c_v, int *c_h) {
+	scanf("%d %d", c_v, c_h);
 }
 
-void animate(int c_v, int c_h) {
+void animate(int c_v, int c_h, FieldProperties (*cards)[FIELD_SIZE]) {
 	int d;
 	int state = cards[c_v][c_h].animationState;
 	if (state == 0)
@@ -22,19 +25,19 @@ void animate(int c_v, int c_h) {
 	for (; state <= 6 && state >= 0; state += d)
 	{
 		cards[c_v][c_h].animationState = state;
-		printField();
+		printField(cards);
 	}
 }
 
-void printField() {
+void printField(FieldProperties (*cards)[FIELD_SIZE]) {
 	system("cls");
 	for (int c_v = 0; c_v < FIELD_SIZE; ++c_v) // cards vertical
 	{
-		for (int line = 0; line < FIELD_SIZE; ++line) // lines height of a card
+		for (int line = 0; line < 4; ++line) // lines height of a card
 		{
 			for (int c_h = 0; c_h < FIELD_SIZE; ++c_h) // cards horizontally
 			{
-				printPart(c_v, c_h, line, cards[c_v][c_h].animationState);
+				printPart(line, cards[c_v][c_h].animationState, cards[c_v][c_h].image);
 			}
 			printf("\n");
 		}
@@ -42,7 +45,7 @@ void printField() {
 	}
 }
 
-void printPart(int c_v, int c_h, int line, int state) {
+void printPart(int line, int state, int image) {
 	switch (line) {
 		case 0: // top line
 			switch (state) {
@@ -112,10 +115,10 @@ void printPart(int c_v, int c_h, int line, int state) {
 					printf("   | |   ");
 					break;
 				case 5:
-					printf("  | %s |  ", cards[c_v][c_h].image);
+					printf("  | %c |  ", image);
 					break;
 				case 6:
-					printf(" |  %s  | ", cards[c_v][c_h].image);
+					printf(" |  %c  | ", image);
 					break;
 			}
 			break;
