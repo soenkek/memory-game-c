@@ -49,6 +49,9 @@ void printPart(int line, int state, int image) {
 	switch (line) {
 		case 0: // top line
 			switch (state) {
+				case -1:
+					printf("         ");
+					break;
 				case 0:
 					printf("  _____  ");
 					break;
@@ -74,6 +77,9 @@ void printPart(int line, int state, int image) {
 			break;
 		case 1: // upper mid
 			switch (state) {
+				case -1:
+					printf("         ");
+					break;
 				case 0:
 					printf(" |     | ");
 					break;
@@ -99,6 +105,9 @@ void printPart(int line, int state, int image) {
 			break;
 		case 2: //lower mid
 			switch (state) {
+				case -1:
+					printf("         ");
+					break;
 				case 0:
 					printf(" |  ?  | ");
 					break;
@@ -124,6 +133,9 @@ void printPart(int line, int state, int image) {
 			break;
 		case 3: // bottom line
 			switch (state) {
+				case -1:
+					printf("         ");
+					break;
 				case 0:
 					printf(" |_____| ");
 					break;

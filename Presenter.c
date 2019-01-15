@@ -33,7 +33,6 @@ void generateCards() {
 		{
 			cards[i][j].image = -1;
 			cards[i][j].animationState = 0;
-			cards[i][j].visibility = 1;
 		}
 	}
 	//generate random numbers
@@ -67,7 +66,6 @@ void generateCards() {
 	//put numbers into cards
 	for (i = 0; i < numChars; ++i)
 	{
-		printf("%d\n", i);
 		for (int j = 0; j < 2; ++j) //2 cards per image
 		{
 			int position = rand() % FIELD_SIZE * FIELD_SIZE - 1;

@@ -4,6 +4,5 @@
 
 typedef struct {
 	int image;
-	int animationState; // [0...6]
-	int visibility; // 1 = visible; 0 = invisible
+	int animationState; // [0...6], -1 = invisible
 } FieldProperties;
