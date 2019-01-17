@@ -49,112 +49,112 @@ void printPart(int line, int state, int image) {
 	switch (line) {
 		case 0: // top line
 			switch (state) {
-				case -1:
+				case INVISIBLE:
 					printf("         ");
 					break;
-				case 0:
+				case HIDDEN:
 					printf("  _____  ");
 					break;
-				case 1:
+				case TURN_1:
 					printf("   ___   ");
 					break;
-				case 2:
+				case TURN_2:
 					printf("    _    ");
 					break;
-				case 3:
+				case TURN_3:
 					printf("         ");
 					break;
-				case 4:
+				case TURN_4:
 					printf("    _    ");
 					break;
-				case 5:
+				case TURN_5:
 					printf("   ___   ");
 					break;
-				case 6:
+				case SHOWN:
 					printf("  _____  ");
 					break;
 			}
 			break;
 		case 1: // upper mid
 			switch (state) {
-				case -1:
+				case INVISIBLE:
 					printf("         ");
 					break;
-				case 0:
+				case HIDDEN:
 					printf(" |     | ");
 					break;
-				case 1:
+				case TURN_1:
 					printf("  |   |  ");
 					break;
-				case 2:
+				case TURN_2:
 					printf("   | |   ");
 					break;
-				case 3:
+				case TURN_3:
 					printf("    |    ");
 					break;
-				case 4:
+				case TURN_4:
 					printf("   | |   ");
 					break;
-				case 5:
+				case TURN_5:
 					printf("  |   |  ");
 					break;
-				case 6:
+				case SHOWN:
 					printf(" |     | ");
 					break;
 			}
 			break;
 		case 2: //lower mid
 			switch (state) {
-				case -1:
+				case INVISIBLE:
 					printf("         ");
 					break;
-				case 0:
+				case HIDDEN:
 					printf(" |  ?  | ");
 					break;
-				case 1:
+				case TURN_1:
 					printf("  | ? |  ");
 					break;
-				case 2:
+				case TURN_2:
 					printf("   | |   ");
 					break;
-				case 3:
+				case TURN_3:
 					printf("    |    ");
 					break;
-				case 4:
+				case TURN_4:
 					printf("   | |   ");
 					break;
-				case 5:
+				case TURN_5:
 					printf("  | %c |  ", image);
 					break;
-				case 6:
+				case SHOWN:
 					printf(" |  %c  | ", image);
 					break;
 			}
 			break;
 		case 3: // bottom line
 			switch (state) {
-				case -1:
+				case INVISIBLE:
 					printf("         ");
 					break;
-				case 0:
+				case HIDDEN:
 					printf(" |_____| ");
 					break;
-				case 1:
+				case TURN_1:
 					printf("  |___|  ");
 					break;
-				case 2:
+				case TURN_2:
 					printf("   |_|   ");
 					break;
-				case 3:
+				case TURN_3:
 					printf("    |    ");
 					break;
-				case 4:
+				case TURN_4:
 					printf("   |_|   ");
 					break;
-				case 5:
+				case TURN_5:
 					printf("  |___|  ");
 					break;
-				case 6:
+				case SHOWN:
 					printf(" |_____| ");
 					break;
 			}

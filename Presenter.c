@@ -3,14 +3,14 @@
 #include "View.h"
 #include "data_structures.h"
 
-//FieldProperties (*cards)[FIELD_SIZE];
-FieldProperties cards[FIELD_SIZE][FIELD_SIZE];
+FieldProperties (*cards)[FIELD_SIZE];
+//FieldProperties cards[FIELD_SIZE][FIELD_SIZE];
 
 void validateGameInput();
 void generateCards();
 
 int main() {
-	//cards = malloc (FIELD_SIZE * sizeof(FieldProperties));
+	cards = malloc (FIELD_SIZE * FIELD_SIZE * sizeof(FieldProperties));
 	generateCards();
 	printField(cards);
 	while(1) {
