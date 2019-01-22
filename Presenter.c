@@ -8,22 +8,39 @@ FieldProperties (*cards)[FIELD_SIZE];
 
 void validateGameInput();
 void generateCards();
+void compareCards();
 
 int main() {
 	cards = malloc (FIELD_SIZE * FIELD_SIZE * sizeof(FieldProperties));
 	generateCards();
 	printField(cards);
+	int c_v1; 
+	int c_h1; 
+	int c_v2; 
+	int c_h2;
 	while(1) {
-		validateGameInput();
+		getGameInput(&c_v1, &c_h1);
+		validateGameInput(&c_v1, &c_h1);
+		getGameInput(&c_v2, &c_h2);
+		validateGameInput(&c_v2, &c_h2);
+		compareCards(&c_v1, &c_h1, &c_v2, &c_h2, *cards);
 	}
 	return 0;
 }
 
+void compareCards(int *card1_x, int *card1_y, int *card2_x, int *card2_y, FieldProperties (*cards)[FIELD_SIZE]){
+	if (cards[*card1_x][*card1_y].image == cards[*card2_x][*card2_y].image){
+		cards[*card1_x][*card1_y].animationState = -1;
+		cards[*card2_x][*card2_y].animationState = -1;
+	}
+	else{
+		animate(*card1_x, *card1_y, cards);
+		animate(*card2_x, *card2_y, cards);
+	}
+}
 
-void validateGameInput() {
-	int c_v, c_h;
-	getGameInput(&c_v, &c_h);
-	animate(c_v, c_h, cards);
+void validateGameInput(int *c_v,int *c_h) {
+	animate(*c_v, *c_h, cards);
 }
 
 void generateCards() {
