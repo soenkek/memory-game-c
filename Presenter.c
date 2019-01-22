@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "View.h"
 #include "data_structures.h"
+#include <windows.h>
 
 FieldProperties (*cards)[FIELD_SIZE];
 //FieldProperties cards[FIELD_SIZE][FIELD_SIZE];
@@ -30,10 +31,14 @@ int main() {
 
 void compareCards(int *card1_x, int *card1_y, int *card2_x, int *card2_y, FieldProperties (*cards)[FIELD_SIZE]){
 	if (cards[*card1_x][*card1_y].image == cards[*card2_x][*card2_y].image){
+		Sleep(800);
 		cards[*card1_x][*card1_y].animationState = -1;
 		cards[*card2_x][*card2_y].animationState = -1;
+		printField(cards);
+	
 	}
 	else{
+		Sleep(800);
 		animate(*card1_x, *card1_y, cards);
 		animate(*card2_x, *card2_y, cards);
 	}
