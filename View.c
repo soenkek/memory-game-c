@@ -4,7 +4,7 @@ void getGameInput(int *c_v, int *c_h) {
 	scanf("%d %d", c_v, c_h);
 }
 
-void animate(int c_v, int c_h, FieldProperties (*cards)[FIELD_SIZE]) {
+void animate(int c_v, int c_h, FieldProperties (*cards)[FIELD_SIZE], int *points, int player) {
 	int d;
 	int state = cards[c_v][c_h].animationState;
 	if (state == 0)
@@ -16,11 +16,11 @@ void animate(int c_v, int c_h, FieldProperties (*cards)[FIELD_SIZE]) {
 	for (; state <= 6 && state >= 0; state += d)
 	{
 		cards[c_v][c_h].animationState = state;
-		printField(cards);
+		printField(cards, points, player);
 	}
 }
 
-void printField(FieldProperties (*cards)[FIELD_SIZE]) {
+void printField(FieldProperties (*cards)[FIELD_SIZE], int *points, int player) {
 	system("cls");
 	for (int c_v = 0; c_v < FIELD_SIZE; ++c_v) // cards vertical
 	{
@@ -34,6 +34,7 @@ void printField(FieldProperties (*cards)[FIELD_SIZE]) {
 		}
 		printf("\n");
 	}
+	printf("\nSpieler1: %d\nSpieler2: %d\n\nSpieler%d ist am Zug!\n", points[0], points[1], player + 1);
 }
 
 void printPart(int line, int state, int image) {
