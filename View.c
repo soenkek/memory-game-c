@@ -2,6 +2,8 @@
 
 void getGameInput(int *c_v, int *c_h) {
 	scanf("%d %d", c_v, c_h);
+	(*c_v)--;
+	(*c_h)--;
 }
 
 int gameOver(int *points) {
