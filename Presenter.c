@@ -24,7 +24,10 @@ int main() {
 	int c_h1; 
 	int c_v2; 
 	int c_h2;
+	//int *removedCards2Dim = (int *)malloc(FIELD_SIZE * FIELD_SIZE * sizeof(int)); 
 	while(1) {
+		//assign a different value to every cordinate to avoid conflict in validate game input
+		c_v1 = 0; c_h1 = 1; c_v2 = 2; c_h2 = 3;
 		getGameInput(&c_v1, &c_h1);
 		validateGameInput(&c_v1, &c_h1);
 		getGameInput(&c_v2, &c_h2);
@@ -35,7 +38,15 @@ int main() {
 }
 
 void compareCards(int *card1_x, int *card1_y, int *card2_x, int *card2_y, FieldProperties (*cards)[FIELD_SIZE]){
-	if (cards[*card1_x][*card1_y].image == cards[*card2_x][*card2_y].image){
+	if (*card1_x == *card2_x && *card1_y == *card2_y){
+		animate(*card2_x, *card2_y, cards, points, player);
+		printField(cards, points, player);
+		printf("You cant select the same card twice. Please select your second card again.");
+		getGameInput(card2_x, card2_y);
+		validateGameInput(card2_x,card2_y);
+		compareCards(card1_x, card1_y, card2_x, card2_y, cards);
+	}
+	else if (cards[*card1_x][*card1_y].image == cards[*card2_x][*card2_y].image){
 		Sleep(800);
 		points[player] += 1;
 		cards[*card1_x][*card1_y].animationState = -1;
@@ -55,7 +66,14 @@ void compareCards(int *card1_x, int *card1_y, int *card2_x, int *card2_y, FieldP
 }
 
 void validateGameInput(int *c_v,int *c_h) {
-	animate(*c_v, *c_h, cards, points, player);
+	if ((*c_v == 0 || *c_v == 1 || *c_v == 2 || *c_v == 3) && (*c_h == 0 || *c_h == 1 || *c_h == 2 || *c_h == 3 ))	{
+		animate(*c_v, *c_h, cards, points, player);
+	}else{
+		printf("Input not in valid range. Input 2 numbers from 0 to (including) 3 seperated with space \n");
+		getGameInput(c_v, c_h);
+		validateGameInput(c_v, c_h);
+	}
+	
 }
 
 void generateCards() {
