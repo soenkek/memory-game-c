@@ -13,7 +13,7 @@ void animate(int c_v, int c_h, FieldProperties (*cards)[FIELD_SIZE], int *points
 	} else {
 		d = -1;
 	}
-	for (; state <= 6 && state >= 0; state += d)
+	for (; state <= SHOWN && state >= HIDDEN; state += d)
 	{
 		cards[c_v][c_h].animationState = state;
 		printField(cards, points, player);
@@ -24,7 +24,7 @@ void printField(FieldProperties (*cards)[FIELD_SIZE], int *points, int player) {
 	system("cls");
 	for (int c_v = 0; c_v < FIELD_SIZE; ++c_v) // cards vertical
 	{
-		for (int line = 0; line < 4; ++line) // lines height of a card
+		for (int line = 0; line < 5; ++line) // lines height of a card
 		{
 			for (int c_h = 0; c_h < FIELD_SIZE; ++c_h) // cards horizontally
 			{
@@ -42,112 +42,107 @@ void printPart(int line, int state, int image) {
 		case 0: // top line
 			switch (state) {
 				case INVISIBLE:
-					printf("         ");
+				case TURN_4:
+					printf("           ");
 					break;
 				case HIDDEN:
-					printf("  _____  ");
+				case SHOWN:
+					printf(" %c%c%c%c%c%c%c%c%c ", TOP_LEFT, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, TOP_RIGHT);
 					break;
 				case TURN_1:
-					printf("   ___   ");
+				case TURN_7:
+					printf("  %c%c%c%c%c%c%c  ", TOP_LEFT, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, TOP_RIGHT);
 					break;
 				case TURN_2:
-					printf("    _    ");
+				case TURN_6:
+					printf("   %c%c%c%c%c   ", TOP_LEFT, HORIZONTAL, HORIZONTAL, HORIZONTAL, TOP_RIGHT);
 					break;
 				case TURN_3:
-					printf("         ");
-					break;
-				case TURN_4:
-					printf("    _    ");
-					break;
 				case TURN_5:
-					printf("   ___   ");
-					break;
-				case SHOWN:
-					printf("  _____  ");
+					printf("    %c%c%c    ", TOP_LEFT, HORIZONTAL, TOP_RIGHT);
 					break;
 			}
 			break;
 		case 1: // upper mid
+		case 3: //lower mid
 			switch (state) {
 				case INVISIBLE:
-					printf("         ");
+					printf("           ");
 					break;
 				case HIDDEN:
-					printf(" |     | ");
+				case SHOWN:
+					printf(" %c       %c ", VERTICAL, VERTICAL);
 					break;
 				case TURN_1:
-					printf("  |   |  ");
+				case TURN_7:
+					printf("  %c     %c  ", VERTICAL, VERTICAL);
 					break;
 				case TURN_2:
-					printf("   | |   ");
+				case TURN_6:
+					printf("   %c   %c   ", VERTICAL, VERTICAL);
 					break;
 				case TURN_3:
-					printf("    |    ");
+				case TURN_5:
+					printf("    %c %c    ", VERTICAL, VERTICAL);
 					break;
 				case TURN_4:
-					printf("   | |   ");
-					break;
-				case TURN_5:
-					printf("  |   |  ");
-					break;
-				case SHOWN:
-					printf(" |     | ");
+					printf("     %c     ", VERTICAL);
 					break;
 			}
 			break;
-		case 2: //lower mid
+		case 2: // mid
 			switch (state) {
 				case INVISIBLE:
-					printf("         ");
+					printf("           ");
 					break;
 				case HIDDEN:
-					printf(" |  ?  | ");
+					printf(" %c   ?   %c ", VERTICAL, VERTICAL);
 					break;
 				case TURN_1:
-					printf("  | ? |  ");
+					printf("  %c  ?  %c  ", VERTICAL, VERTICAL);
 					break;
 				case TURN_2:
-					printf("   | |   ");
+					printf("   %c ? %c   ", VERTICAL, VERTICAL);
 					break;
 				case TURN_3:
-					printf("    |    ");
+				case TURN_5:
+					printf("    %c %c    ", VERTICAL, VERTICAL);
 					break;
 				case TURN_4:
-					printf("   | |   ");
+					printf("     %c     ", VERTICAL);
 					break;
-				case TURN_5:
-					printf("  | %c |  ", image);
+				case TURN_6:
+					printf("   %c %c %c   ", VERTICAL, image, VERTICAL);
+					break;
+				case TURN_7:
+					printf("  %c  %c  %c  ", VERTICAL, image, VERTICAL);
 					break;
 				case SHOWN:
-					printf(" |  %c  | ", image);
+					printf(" %c   %c   %c ", VERTICAL, image, VERTICAL);
 					break;
 			}
 			break;
-		case 3: // bottom line
+		case 4: // bottom line
 			switch (state) {
 				case INVISIBLE:
-					printf("         ");
+				case TURN_4:
+					printf("           ");
 					break;
 				case HIDDEN:
-					printf(" |_____| ");
+				case SHOWN:
+					printf(" %c%c%c%c%c%c%c%c%c ", BOTTOM_LEFT, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, BOTTOM_RIGHT);
 					break;
 				case TURN_1:
-					printf("  |___|  ");
+				case TURN_7:
+					printf("  %c%c%c%c%c%c%c  ", BOTTOM_LEFT, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, HORIZONTAL, BOTTOM_RIGHT);
 					break;
 				case TURN_2:
-					printf("   |_|   ");
+				case TURN_6:
+					printf("   %c%c%c%c%c   ", BOTTOM_LEFT, HORIZONTAL, HORIZONTAL, HORIZONTAL, BOTTOM_RIGHT);
 					break;
 				case TURN_3:
-					printf("    |    ");
-					break;
-				case TURN_4:
-					printf("   |_|   ");
-					break;
 				case TURN_5:
-					printf("  |___|  ");
-					break;
-				case SHOWN:
-					printf(" |_____| ");
+					printf("    %c%c%c    ", BOTTOM_LEFT, HORIZONTAL, BOTTOM_RIGHT);
 					break;
 			}
 			break;
