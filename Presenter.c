@@ -8,28 +8,39 @@ FieldProperties (*cards)[FIELD_SIZE];
 //FieldProperties cards[FIELD_SIZE][FIELD_SIZE];
 int player;
 int *points;
+int pairsleft;
 
 void validateGameInput();
 void generateCards();
 void compareCards();
 
 int main() {
-	player = 0;
-	points = malloc (2 * sizeof(int));
-	points[0] = points[1] = 0;
-	cards = malloc (FIELD_SIZE * FIELD_SIZE * sizeof(FieldProperties));
-	generateCards();
-	printField(cards, points, player);
-	int c_v1; 
-	int c_h1; 
-	int c_v2; 
-	int c_h2;
-	while(1) {
-		getGameInput(&c_v1, &c_h1);
-		validateGameInput(&c_v1, &c_h1);
-		getGameInput(&c_v2, &c_h2);
-		validateGameInput(&c_v2, &c_h2);
-		compareCards(&c_v1, &c_h1, &c_v2, &c_h2, *cards);
+	int again;
+	while (1) {
+		again = 0;
+		player = 0;
+		points = malloc (2 * sizeof(int));
+		points[0] = points[1] = 0;
+		pairsleft = FIELD_SIZE * FIELD_SIZE / 2;
+		cards = malloc (FIELD_SIZE * FIELD_SIZE * sizeof(FieldProperties));
+		generateCards();
+		printField(cards, points, player);
+		int c_v1; 
+		int c_h1; 
+		int c_v2; 
+		int c_h2;
+		while(pairsleft) {
+			validateGameInput(&c_v1, &c_h1);
+			validateGameInput(&c_v2, &c_h2);
+			compareCards(&c_v1, &c_h1, &c_v2, &c_h2, *cards);
+		}
+		again = gameOver(points);
+		free(points);
+		free(cards);
+		if (again == 0)
+		{
+			return 0;
+		}
 	}
 	return 0;
 }
@@ -40,6 +51,7 @@ void compareCards(int *card1_x, int *card1_y, int *card2_x, int *card2_y, FieldP
 		points[player] += 1;
 		cards[*card1_x][*card1_y].animationState = -1;
 		cards[*card2_x][*card2_y].animationState = -1;
+		pairsleft -= 1;
 		printField(cards, points, player);
 	
 	}
@@ -55,7 +67,23 @@ void compareCards(int *card1_x, int *card1_y, int *card2_x, int *card2_y, FieldP
 }
 
 void validateGameInput(int *c_v,int *c_h) {
-	animate(*c_v, *c_h, cards, points, player);
+	while (1) {
+		getGameInput(c_v, c_h);
+		if (*c_v < 0 || *c_v > 3 || *c_h < 0 || *c_h > 3 ||
+			cards[*c_v][*c_h].animationState == -1)
+		{
+			printf("\nEingabe ung\x81ltig! (W\x84hle zwei Koordinaten zwischen 1 und 4 von einer der sichtbaren Karten)\n");
+		}
+		else if (cards[*c_v][*c_h].animationState != 0)
+		{
+			printf("\nEingabe ung\x81ltig! (Es m\x81ssen zwei verschiedene Karten gew\x84hlt werden)\n");
+		}
+		else
+		{
+			animate(*c_v, *c_h, cards, points, player);
+			return;
+		}
+	}
 }
 
 void generateCards() {
