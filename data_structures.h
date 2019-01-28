@@ -1,6 +1,8 @@
 #pragma once
 
-#define FIELD_SIZE  4
+#define FIELD_SIZE 4
+#define CARD_SIZE_HORIZONTAL 11
+#define CARD_SIZE_VERTICAL 5
 
 typedef enum {
 	INVISIBLE = -1, //card invisible

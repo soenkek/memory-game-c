@@ -17,6 +17,7 @@ void compareCards();
 int main() {
 	int again;
 	while (1) {
+		allocBuffer();
 		again = 0;
 		player = 0;
 		points = malloc (2 * sizeof(int));
@@ -37,6 +38,7 @@ int main() {
 		again = gameOver(points);
 		free(points);
 		free(cards);
+		freeBuffer();
 		if (again == 0)
 		{
 			return 0;
