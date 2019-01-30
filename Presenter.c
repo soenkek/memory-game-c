@@ -17,7 +17,6 @@ void compareCards();
 int main() {
 	int again;
 	while (1) {
-		allocBuffer();
 		again = 0;
 		player = 0;
 		points = malloc (2 * sizeof(int));
@@ -38,7 +37,6 @@ int main() {
 		again = gameOver(points);
 		free(points);
 		free(cards);
-		freeBuffer();
 		if (again == 0)
 		{
 			return 0;
@@ -71,10 +69,10 @@ void compareCards(int *card1_x, int *card1_y, int *card2_x, int *card2_y, FieldP
 void validateGameInput(int *c_v,int *c_h) {
 	while (1) {
 		getGameInput(c_v, c_h);
-		if (*c_v < 0 || *c_v > 3 || *c_h < 0 || *c_h > 3 ||
+		if (*c_v < 0 || *c_v > FIELD_SIZE -1 || *c_h < 0 || *c_h > FIELD_SIZE ||
 			cards[*c_v][*c_h].animationState == -1)
 		{
-			printf("\nEingabe ung\x81ltig! (W\x84hle zwei Koordinaten zwischen 1 und 4 von einer der sichtbaren Karten)\n");
+			printf("\nEingabe ung\x81ltig! (W\x84hle zwei Koordinaten zwischen 1 und %d von einer der sichtbaren Karten)\n", FIELD_SIZE);
 		}
 		else if (cards[*c_v][*c_h].animationState != 0)
 		{
