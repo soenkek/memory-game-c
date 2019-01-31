@@ -8,12 +8,19 @@ void getGameInput(int *c_v, int *c_h) {
 
 int gameOver(int *points) {
 	system("cls");
-	int player;
-	if (points[0] > points[1])
-		player = 1;
+	if(points[0] == points[1])
+	{
+		printf("\n\t%d-%d\nUnentschieden!\n\nErneut spielen? J/N\n", points[0], points[1]);
+	}
 	else
-		player = 2;
-	printf("\n\t%d-%d\nSpieler%d gewinnt!\n\nErneut spielen? J/N\n", points[0], points[1], player);
+	{
+		int player;
+		if (points[0] > points[1])
+			player = 1;
+		else
+			player = 2;
+		printf("\n\t%d-%d\nSpieler%d gewinnt!\n\nErneut spielen? J/N\n", points[0], points[1], player);
+	}
 	char c;
 	scanf(" %c", &c);
 	if (c == 74 || c == 106) {
